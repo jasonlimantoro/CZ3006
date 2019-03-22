@@ -143,6 +143,7 @@
             </div>
 
             <button class="btn btn-primary btn-block" type="submit">Submit</button>
+            <button class="btn btn-secondary btn-block" type="reset">Reset</button>
           </form>
         </div>
         <div class="tabel-container">
