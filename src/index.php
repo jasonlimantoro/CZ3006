@@ -10,8 +10,20 @@
 	</head>
 	<body>
 		<?php
-			// define variables and set to empty values
-			$banana = $apple = $orange = $payment = $username = "";
+      $data = [0, 0, 0];
+      if ($file = fopen('update.txt', 'r')){
+        // apple, banana, orange
+        $i = 0;
+        while(!feof($file)) {
+          $numbers = [];
+          $line = fgets($file);
+          preg_match("/\d+/", $line, $numbers);
+          $data[$i] = $numbers[0];
+          $i++;
+        }
+        fclose($file);
+      }
+			$banana = $apple = $orange = $payment = $username = 0;
 			$total = 0;
 			$submited = false;
 
@@ -23,9 +35,9 @@
 			}
 
 			if ($_SERVER["REQUEST_METHOD"] == "POST") {
-				$banana = clean($_POST["banana"]);
-				$apple = clean($_POST["apple"]);
-				$orange = clean($_POST["orange"]);
+        $apple = $data[0] + intval(clean($_POST["apple"]));
+				$banana = $data[1] + intval(clean($_POST["banana"]));
+				$orange = $data[2] + intval(clean($_POST["orange"]));
 				$totalAmount = intval($banana) + intval($apple) + intval($orange);
 				$total = 69 * intval($apple) + 59 * intval($orange) + 39 * intval($banana);
 				$payment = clean($_POST["payment"]);
@@ -35,7 +47,7 @@
 				$file = fopen('update.txt', 'w') or die("Unable to open file!");
 				$text = "Total number of apples: $apple\n";
 				$text .= "Total number of bananas: $banana\n";
-				$text .= "Total number of oranges: $orange\n";
+				$text .= "Total number of oranges: $orange";
 				fwrite($file, $text);
 				fclose($file);
 			}
@@ -43,10 +55,10 @@
     <div class="container web-container">
       <div class="grid-container">
         <div class="form-container">
-          <h1>Form</h1>
+          <h2>Place your order</h2>
           <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" onsubmit="mySubmit();" method='POST'>
             <div class="form-group">
-              <label for="username">Username</label>
+              <label for="username">Username:</label>
               <input
                 placeholder="Enter username"
                 class="form-control"
@@ -58,7 +70,7 @@
             </div>
 
             <div class="form-group">
-              <label for="apple">Apple</label>
+              <label for="apple">Apple:</label>
               <div class="input-group">
                 <input
                   placeholder="Enter amount"
@@ -76,7 +88,7 @@
             </div>
 
             <div class="form-group">
-              <label for="orange">Orange</label>
+              <label for="orange">Orange:</label>
               <div class="input-group">
                 <input
                   placeholder="Enter amount"
@@ -94,7 +106,7 @@
             </div>
 
             <div class="form-group">
-              <label for="banana">Banana</label>
+              <label for="banana">Banana:</label>
               <div class="input-group">
                 <input
                   placeholder="Enter amount"
@@ -111,22 +123,22 @@
               </div>
             </div>
 
-            <label>Payment Options</label>
+            <label>Payment Options: </label>
             <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="payment" id="inlineRadio1" value="Visa">
+              <input class="form-check-input" required type="radio" name="payment" id="inlineRadio1" value="Visa">
               <label class="form-check-label" for="inlineRadio1">Visa</label>
             </div>
             <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="payment" id="inlineRadio2" value="MasterCard">
+              <input class="form-check-input" required type="radio" name="payment" id="inlineRadio2" value="MasterCard">
               <label class="form-check-label" for="inlineRadio2">MasterCard</label>
             </div>
             <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="payment" id="inlineRadio3" value="Discover">
+              <input class="form-check-input" required type="radio" name="payment" id="inlineRadio3" value="Discover">
               <label class="form-check-label" for="inlineRadio3">Discover</label>
             </div>
 
             <div class="form-group">
-              <label for="total">Total</label>
+              <label for="total">Total (Cents):</label>
               <input class="form-control" type="text" name="total" id="total" readonly onfocus="blurTotal()" />
             </div>
 
@@ -134,7 +146,7 @@
           </form>
         </div>
         <div class="tabel-container">
-          <h1>Submitted Data</h1>
+          <h2>Your Order</h2>
           <table class="table table-hover">
             <thead>
               <tr>
@@ -171,9 +183,15 @@
 
                   echo "<tfoot>";
                   echo "<tr>";
-                  echo "<td colspan='2'><strong>Total</strong></td>";
-                  echo "<td><strong>$totalAmount</strong></td>";
+                  echo "<th scope='row' colspan='2'>Total</th>";
+                  echo "<td>$totalAmount</td>";
                   echo "</tr>";
+
+                  echo "<tr>";
+                  echo "<th scope='row' colspan='2'>Total Price (Cents)</th>";
+                  echo "<td>$total</td>";
+                  echo "</tr>";
+
                   echo "</tfoot>";
               } else {
                 echo "<p class='text-mute'>No submitted data</p>";
