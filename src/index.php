@@ -35,9 +35,9 @@
 			}
 
 			if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $apple = $data[0] + intval(clean($_POST["apple"]));
-				$banana = $data[1] + intval(clean($_POST["banana"]));
-				$orange = $data[2] + intval(clean($_POST["orange"]));
+        $apple = intval(clean($_POST["apple"]));
+				$banana = intval(clean($_POST["banana"]));
+				$orange = intval(clean($_POST["orange"]));
 				$totalAmount = intval($banana) + intval($apple) + intval($orange);
 				$total = 69 * intval($apple) + 59 * intval($orange) + 39 * intval($banana);
 				$payment = clean($_POST["payment"]);
@@ -45,9 +45,12 @@
 				$submited = true;
 
 				$file = fopen('order.txt', 'w') or die("Unable to open file!");
-				$text = "Total number of apples: $apple\n";
-				$text .= "Total number of bananas: $banana\n";
-				$text .= "Total number of oranges: $orange";
+        $totalApple = $data[0] + $apple;
+        $totalBanana = $data[1] + $banana;
+        $totalOrange = $data[2] + $orange;
+				$text = "Total number of apples: $totalApple\n";
+				$text .= "Total number of bananas: $totalBanana\n";
+				$text .= "Total number of oranges: $totalOrange";
 				fwrite($file, $text);
 				fclose($file);
 			}
