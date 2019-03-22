@@ -8,8 +8,7 @@ function getValue() {
 function computeTotal() {
   let total = document.querySelector('input[name="total"]');
   const { banana, apple, orange } = getValue();
-  if (!validateForm(banana, apple, orange)) {
-    alert('not valid');
+  if (!validateForm({ banana, apple, orange })){
     total.value = 'NaN';
     return;
   }
@@ -17,39 +16,39 @@ function computeTotal() {
   total.value = computed;
 }
 
-function validateForm(banana, apple, orange) {
-  // digit validation
+function validateInput(input) {
   switch (true) {
-    case /[^\d]+/.test(banana):
+    case input === '':
+      // bypass
+      return true;
+    case /[^\d]+/.test(input):
       return false;
-    case /[^\d]+/.test(apple):
+    case !Number.isInteger(Number(input)) || Number(input) < 0:
       return false;
-    case /[^\d]+/.test(orange):
-      return false;
+    default:
+      return input;
   }
+}
 
-  banana = Number(banana);
-  apple = Number(apple);
-  orange = Number(orange);
-
-  // Integer validation
+function validateForm({ apple, banana, orange }) {
   switch (true) {
-    case !Number.isInteger(apple) || apple < 0:
+    case !validateInput(banana):
+      alert(`Input banana: ${banana} is invalid`);
       return false;
-    case !Number.isInteger(banana) || banana < 0:
+    case !validateInput(apple):
+      alert(`Input apple: ${apple} is invalid`);
       return false;
-    case !Number.isInteger(orange) || orange < 0:
+    case !validateInput(orange):
+      alert(`Input orange: ${orange} is invalid`);
       return false;
+    default:
+      return { banana, apple, orange };
   }
-
-  return { apple, orange, banana };
 }
 
 function mySubmit() {
-  const { banana, apple, orange } = getValue();
-  const valid = validateForm(banana, apple, orange);
+  const valid = validateForm({ ...getValue()});
   if(!valid){
-    alert('Not valid input!');
     event.preventDefault();
     return;
   }
