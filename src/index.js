@@ -32,21 +32,16 @@ function validateForm(banana, apple, orange) {
   apple = Number(apple);
   orange = Number(orange);
 
-  if(
-    !Number.isInteger(banana) ||
-    !Number.isInteger(apple) ||
-    !Number.isInteger(orange)
-  ){
-    return false;
+  // Integer validation
+  switch (true) {
+    case !Number.isInteger(apple) || apple < 0:
+      return false;
+    case !Number.isInteger(banana) || banana < 0:
+      return false;
+    case !Number.isInteger(orange) || orange < 0:
+      return false;
   }
 
-  if(
-    banana < 0 ||
-    apple < 0 ||
-    orange < 0
-  ){
-    return false;
-  }
   return { apple, orange, banana };
 }
 
