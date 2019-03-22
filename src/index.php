@@ -11,7 +11,7 @@
 	<body>
 		<?php
       $data = [0, 0, 0];
-      if ($file = fopen('update.txt', 'r')){
+      if ($file = fopen('order.txt', 'r')){
         // apple, banana, orange
         $i = 0;
         while(!feof($file)) {
@@ -24,7 +24,7 @@
         fclose($file);
       }
 			$banana = $apple = $orange = $payment = $username = 0;
-			$total = 0;
+			$total = $totalAmount = 0;
 			$submited = false;
 
 			function clean($data) {
@@ -44,7 +44,7 @@
 				$username = clean($_POST["username"]);
 				$submited = true;
 
-				$file = fopen('update.txt', 'w') or die("Unable to open file!");
+				$file = fopen('order.txt', 'w') or die("Unable to open file!");
 				$text = "Total number of apples: $apple\n";
 				$text .= "Total number of bananas: $banana\n";
 				$text .= "Total number of oranges: $orange";
@@ -147,58 +147,8 @@
           </form>
         </div>
         <div class="tabel-container">
-          <h2>Your Order</h2>
-          <table class="table table-hover">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Item</th>
-                <th scope="col">Amount</th>
-              </tr>
-            </thead>
-              <?php
-              if ($submited) {
-                  echo "<p>Username: $username</p>";
-                  echo "<p>Payment method: $payment</p>";
-
-                  echo "<tbody>";
-                  echo "<tr>";
-                  echo "<th scope='row'>1</th>";
-                  echo "<td>Apple</td>";
-                  echo "<td>$apple</td>";
-                  echo "</tr>";
-
-                  echo "<tr>";
-                  echo "<th scope='row'>2</th>";
-                  echo "<td>Banana</td>";
-                  echo "<td>$banana</td>";
-                  echo "</tr>";
-
-                  echo "<tr>";
-                  echo "<th scope='row'>3</th>";
-                  echo "<td>Orange</td>";
-                  echo "<td>$orange</td>";
-                  echo "</tr>";
-
-                  echo "</tbody>";
-
-                  echo "<tfoot>";
-                  echo "<tr>";
-                  echo "<th scope='row' colspan='2'>Total</th>";
-                  echo "<td>$totalAmount</td>";
-                  echo "</tr>";
-
-                  echo "<tr>";
-                  echo "<th scope='row' colspan='2'>Total Price (Cents)</th>";
-                  echo "<td>$total</td>";
-                  echo "</tr>";
-
-                  echo "</tfoot>";
-              } else {
-                echo "<p class='text-mute'>No submitted data</p>";
-              }
-              ?>
-          </table>
+          <h2>Your Receipt</h2>
+          <?php include('receipt.php'); ?>
         </div>
       </div>
     </div>
