@@ -9,6 +9,7 @@ function computeTotal() {
   let total = document.querySelector('input[name="total"]');
   const { banana, apple, orange } = getValue();
   if (!validateForm(banana, apple, orange)) {
+    alert('not valid');
     total.value = 'NaN';
     return;
   }
@@ -17,15 +18,33 @@ function computeTotal() {
 }
 
 function validateForm(banana, apple, orange) {
-  banana = parseInt(banana);
-  apple = parseInt(apple);
-  orange = parseInt(orange);
+  // digit validation
+  switch (true) {
+    case /[^\d]+/.test(banana):
+      return false;
+    case /[^\d]+/.test(apple):
+      return false;
+    case /[^\d]+/.test(orange):
+      return false;
+  }
+
+  banana = Number(banana);
+  apple = Number(apple);
+  orange = Number(orange);
 
   if(
     !Number.isInteger(banana) ||
     !Number.isInteger(apple) ||
     !Number.isInteger(orange)
-   ){
+  ){
+    return false;
+  }
+
+  if(
+    banana < 0 ||
+    apple < 0 ||
+    orange < 0
+  ){
     return false;
   }
   return { apple, orange, banana };
