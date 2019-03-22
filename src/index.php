@@ -91,24 +91,6 @@
             </div>
 
             <div class="form-group">
-              <label for="orange">Orange:</label>
-              <div class="input-group">
-                <input
-                  placeholder="Enter amount"
-                  class="form-control"
-                  autocomplete="off"
-                  required
-                  name="orange"
-                  onchange="computeTotal()"
-                  id="orange"
-                >
-                <div class="input-group-append">
-                  <div class="input-group-text">@59</div>
-                </div>
-              </div>
-            </div>
-
-            <div class="form-group">
               <label for="banana">Banana:</label>
               <div class="input-group">
                 <input
@@ -122,6 +104,24 @@
                 >
                 <div class="input-group-append">
                   <div class="input-group-text">@39</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="orange">Orange:</label>
+              <div class="input-group">
+                <input
+                  placeholder="Enter amount"
+                  class="form-control"
+                  autocomplete="off"
+                  required
+                  name="orange"
+                  onchange="computeTotal()"
+                  id="orange"
+                >
+                <div class="input-group-append">
+                  <div class="input-group-text">@59</div>
                 </div>
               </div>
             </div>
