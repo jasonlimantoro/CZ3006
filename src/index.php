@@ -10,19 +10,26 @@
 	</head>
 	<body>
 		<?php
+      $filename = 'order.txt';
       $data = [0, 0, 0];
-      if ($file = fopen('order.txt', 'r')){
+      if (file_exists($filename)) {
         // apple, banana, orange
+        $file = fopen($filename, 'r');
         $i = 0;
         while(!feof($file)) {
           $numbers = [];
           $line = fgets($file);
+          if (!$line) break;
           preg_match("/\d+/", $line, $numbers);
           $data[$i] = $numbers[0];
           $i++;
         }
         fclose($file);
+      } else {
+        $file = fopen($filename, 'w');
+        fclose($file);
       }
+
 			$banana = $apple = $orange = $payment = $username = 0;
 			$total = $totalAmount = 0;
 			$submited = false;
@@ -44,7 +51,7 @@
 				$username = clean($_POST["username"]);
 				$submited = true;
 
-				$file = fopen('order.txt', 'w') or die("Unable to open file!");
+				$file = fopen($filename, 'w') or die("Unable to open file!");
         $totalApple = $data[0] + $apple;
         $totalBanana = $data[1] + $banana;
         $totalOrange = $data[2] + $orange;
