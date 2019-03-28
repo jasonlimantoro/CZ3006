@@ -23,7 +23,7 @@ if ($submited) {
             <td>$banana</td>
           </tr>
           <tr>
-            <th scope='row'>2</th> 
+            <th scope='row'>3</th> 
             <td>Orange</td>
             <td>$orange</td>
           </tr>
