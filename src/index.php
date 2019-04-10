@@ -1,6 +1,6 @@
 <?php include('layouts/base.php') ?>
 <?php startblock('breadrumb') ?>
-  <li class="breadcrumb-item active"><a href="/">Home</a></li>
+  <li class="breadcrumb-item active"><a href=".">Home</a></li>
 <?php endblock() ?>
 <?php startblock('content') ?>
 
