@@ -20,38 +20,57 @@ function validateInput(input) {
   switch (true) {
     case input === '':
       // bypass
-      return true;
-    case /[^\d]+/.test(input):
-      return false;
+      return '';
+    case /[^-\d]+/.test(input):
+      return 'Input must be a digit';
     case !Number.isInteger(Number(input)) || Number(input) < 0:
-      return false;
+      return 'Input must be a positive integer';
     default:
-      return input;
+      return '';
   }
 }
 
-function validateForm({ apple, banana, orange }) {
-  switch (true) {
-    case !validateInput(banana):
-      alert(`Input banana: ${banana} is invalid`);
-      return false;
-    case !validateInput(apple):
-      alert(`Input apple: ${apple} is invalid`);
-      return false;
-    case !validateInput(orange):
-      alert(`Input orange: ${orange} is invalid`);
-      return false;
-    default:
-      return { banana, apple, orange };
-  }
+function validateForm(inputs) {
+  let valid = true;
+  Object.keys(inputs).forEach(key => {
+    const message = validateInput(inputs[key]);
+    if (message) {
+      valid = false;
+      document.querySelector(`[name=${key}]`).classList.add('is-invalid');
+      document.querySelector(`[data-error="${key}"]`).textContent = message;
+    } else {
+      document.querySelector(`[name=${key}]`).classList.remove('is-invalid');
+      document.querySelector(`[data-error="${key}"]`).textContent = '';
+    }
+  });
+  return valid;
 }
 
 function mySubmit() {
   const valid = validateForm({ ...getValue()});
   if(!valid){
     event.preventDefault();
-    return;
+    createAlert('Invalid form! Please fix the input', document.querySelector('[data-error="form"]'));
   }
+}
+
+function createAlert(message, target, className='danger'){
+  const alert = document.createElement('div');
+  const dismissButton = document.createElement('button');
+  const icon = document.createElement('span');
+
+  alert.classList.add('alert', `alert-${className}`, 'alert-dismissable', 'fade', 'show');
+  alert.textContent = message;
+
+  dismissButton.setAttribute('data-dismiss', 'alert');
+  dismissButton.classList.add('close');
+
+  icon.setAttribute('aria-hidden', 'true');
+  icon.innerHTML = '&times;';
+
+  dismissButton.appendChild(icon);
+  alert.appendChild(dismissButton);
+  target.appendChild(alert);
 }
 
 function blurTotal() {

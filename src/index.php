@@ -3,12 +3,14 @@
 <div class="form-container">
   <h2>Place your order</h2>
   <form action="receipt.php" onsubmit="mySubmit();" method='POST'>
+    <div data-error="form"></div>
     <div class="form-group">
       <label for="username">Username:</label>
       <input
         placeholder="Enter username"
         class="form-control"
         autocomplete="off"
+        required
         type="text"
         id="username"
         name="username"
@@ -30,6 +32,7 @@
         <div class="input-group-append">
           <div class="input-group-text">@69</div>
         </div>
+        <div class="invalid-feedback" data-error="apple"></div>
       </div>
     </div>
 
@@ -48,6 +51,7 @@
         <div class="input-group-append">
           <div class="input-group-text">@39</div>
         </div>
+        <div class="invalid-feedback" data-error="banana"></div>
       </div>
     </div>
 
@@ -66,6 +70,7 @@
         <div class="input-group-append">
           <div class="input-group-text">@59</div>
         </div>
+        <div class="invalid-feedback" data-error="orange"></div>
       </div>
     </div>
 
