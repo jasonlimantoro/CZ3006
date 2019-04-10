@@ -21,9 +21,8 @@ if (file_exists($filename)) {
   fclose($file);
 }
 
-$banana = $apple = $orange = $payment = $username = 0;
-$total = $totalAmount = 0;
-$submited = false;
+$banana = $apple = $orange = $total = $totalAmount = 0;
+$username = $payment = '';
 
 function clean($data)
 {
@@ -41,7 +40,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $total = 69 * intval($apple) + 59 * intval($orange) + 39 * intval($banana);
   $payment = clean($_POST["payment"]);
   $username = clean($_POST["username"]);
-  $submited = true;
 
   $file = fopen($filename, 'w') or die("Unable to open file!");
   $totalApple = $data[0] + $apple;
