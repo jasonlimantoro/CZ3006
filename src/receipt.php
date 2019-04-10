@@ -50,6 +50,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $text .= "Total number of oranges: $totalOrange";
   fwrite($file, $text);
   fclose($file);
+} else {
+	header("HTTP/1.0 405 Method Not Allowed");
+	exit();
 }
 ?>
 
