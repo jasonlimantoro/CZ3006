@@ -16,6 +16,13 @@
 </head>
 <body>
 <div class="container web-container">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+    <?php startblock('breadrumb') ?>
+    <?php endblock() ?>
+    </ol>
+  </nav>
+
   <?php startblock('content') ?>
   <?php endblock() ?>
 </div>

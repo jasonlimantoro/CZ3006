@@ -1,5 +1,9 @@
 <?php include('layouts/base.php') ?>
+<?php startblock('breadrumb') ?>
+  <li class="breadcrumb-item active"><a href="/">Home</a></li>
+<?php endblock() ?>
 <?php startblock('content') ?>
+
 <div class="form-container">
   <h2>Place your order</h2>
   <form action="receipt.php" onsubmit="mySubmit();" method='POST'>

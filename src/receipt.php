@@ -1,4 +1,4 @@
-<?php include('layouts/base.php') ?>
+<?php include('index.php') ?>
 <?php
 $filename = 'order.txt';
 $data = [0, 0, 0];
@@ -56,7 +56,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 
 <?php startblock('title') ?>
-  Your Receipt
+  <?= $username ?> Receipt
+<?php endblock() ?>
+
+<?php startblock('breadrumb') ?>
+  <?php superblock() ?>
+  <li class="breadcrumb-item">Receipt</li>
 <?php endblock() ?>
 
 <?php startblock('content') ?>
