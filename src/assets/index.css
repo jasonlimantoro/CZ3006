@@ -8,13 +8,3 @@
     display: flex;
     flex-direction: column;
 }
-.grid-container {
-    display: grid;
-    grid-gap: 30px;
-}
-
-@media only screen and (min-width: 1200px) {
-    .grid-container {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
