@@ -19,8 +19,7 @@ function computeTotal() {
 function validateInput(input) {
   switch (true) {
     case input === '':
-      // bypass
-      return '';
+      return 'Input is required';
     case /[^-\d]+/.test(input):
       return 'Input must be a digit';
     case !Number.isInteger(Number(input)) || Number(input) < 0:
