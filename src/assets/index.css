@@ -3,6 +3,7 @@
     flex-direction: column;
     justify-content: center;
     min-height: 100vh;
+    max-width: 60vw;
 }
 .form-container {
     display: flex;
